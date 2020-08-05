@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: view
-          image: 052937454741.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-skcc-admin16-view:latest
+          image: 052937454741.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-skcc-admin16-view:v1
           ports:
             - containerPort: 8080
           readinessProbe:
