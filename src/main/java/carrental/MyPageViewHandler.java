@@ -62,6 +62,25 @@ public class MyPageViewHandler {
     }
 
     @StreamListener(KafkaProcessor.INPUT)
+    public void whenStared_then_UPDATE_1(@Payload StarUpdated starUpdated) {
+        try {
+            if (starUpdated.isMe()) {
+                // view 객체 조회
+                List<MyPage> myPageList = myPageRepository.findByResrvNo(starUpdated.getResrvNo());
+                MyPage myPage = new MyPage();
+                myPage.setResrvNo(starUpdated.getResrvNo());
+                if (myPageList.size() > 0) {
+                    myPage = myPageList.get(0);
+                }
+                myPage.setStars(starUpdated.getStars());
+                myPageRepository.save(myPage);
+                System.out.println("##### listener whenPaid_then_UPDATE_1 [VIEW] : " + starUpdated.toJson());            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @StreamListener(KafkaProcessor.INPUT)
     public void whenCarRented_then_UPDATE_2(@Payload CarRented carRented) {
         try {
             if (carRented.isMe()) {
